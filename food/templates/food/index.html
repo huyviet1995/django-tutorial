@@ -26,6 +26,9 @@
                         <h6>{{ item.item_price }}</h6>
                     </div>
                     <div class="col-md-2">
+                        <a href="{% url 'food:detail' item.id %}">
+                            <button class="btn btn-success">View</button>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
