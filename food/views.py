@@ -1,5 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from .forms import ItemForm
 from .models import Item
 from django.template import loader
 
@@ -20,3 +22,15 @@ def detail(req, item_id):
         'item': item,
     }
     return render(req, 'food/detail.html', context)
+
+def create_item(req):
+    form = ItemForm(req.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('food:index')
+
+    context = {
+        'form': form
+    }
+    return render(req, 'food/item-form.html', context)
